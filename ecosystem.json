@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "ecosystem": "BELENTANI",
+  "universe": "JUDAS",
+  "layer": "experience",
+  "role": "canonical-judas-surface",
+  "status": "active",
+  "parent_repository": "belentani7/Belentani",
+  "related_repositories": [
+    "belentani7/belentani-judas-monograph",
+    "belentani7/belentani-judas-era-omega",
+    "belentani7/belentani-judas-escape-mobile"
+  ],
+  "contract": {
+    "inputs": ["music", "visuals", "narrative", "interaction"],
+    "outputs": ["immersive experience", "media", "story state", "audience interaction"],
+    "integration": "BELENTANI ecosystem contract",
+    "destructive_merges": false
+  }
+}

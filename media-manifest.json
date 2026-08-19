@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "universe": "JUDAS",
+  "assets": [
+    {
+      "path": "Judas-demo-pura.mp3",
+      "kind": "audio",
+      "mime_type": "audio/mpeg",
+      "duration_seconds": 239.184,
+      "size_bytes": 5740529,
+      "sha256": "4dbc8e3113a97403b4480855f8c0b912d833d8648df4dfac4d4a209827617fc1"
+    }
+  ]
+}

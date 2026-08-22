@@ -8,7 +8,7 @@
 | --- | --- |
 | Contrato de integración | Definido en `ecosystem.json` y `docs/ECOSYSTEM.md`. |
 | Mapa de relaciones | Documentado en `docs/RELATIONSHIP-MAP.md`. |
-| Audio canónico | `Judas-demo-pura.mp3`, 239,184 segundos. |
+| Audio canónico | `Judas-demo-pura.mp3`, 239,184 segundos (3:59.184). |
 | Integridad de medios | Verificada mediante `media-manifest.json` y SHA-256. |
 | Interfaz interactiva | Pendiente de construir en una futura superficie web o móvil. |
 

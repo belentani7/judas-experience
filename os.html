@@ -95,6 +95,14 @@
   input,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#fff;font:inherit}
   label{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
   a{color:var(--redhot)}
+  #desktop{position:fixed;inset:34px 0 98px 0;z-index:5;padding:16px;display:grid;grid-template-columns:repeat(auto-fill,84px);grid-auto-rows:92px;gap:6px;align-content:start}
+  .dicon{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 4px;border-radius:12px;cursor:pointer;color:#d9d4e2;font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-align:center;border:1px solid transparent;transition:background .2s}
+  .dicon:hover{background:rgba(255,255,255,.06)}
+  .dicon.sel{background:rgba(255,0,60,.18);border-color:var(--redhot)}
+  .dicon i{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:19px;font-style:normal;border:1px solid var(--line);background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.02))}
+  #ctx{position:fixed;z-index:200;min-width:200px;border:1px solid var(--line);border-radius:12px;background:rgba(12,4,20,.96);backdrop-filter:blur(16px);padding:6px;display:none;box-shadow:0 24px 70px rgba(0,0,0,.6)}
+  #ctx button{display:block;width:100%;text-align:left;background:none;border:0;color:#d9d4e2;font-family:var(--mono);font-size:11px;padding:8px 10px;border-radius:8px;cursor:pointer}
+  #ctx button:hover{background:var(--red);color:#fff}
   @media(max-width:640px){#dock{gap:4px;padding:7px}.app i{width:28px;height:28px;font-size:13px}.app{font-size:8px}}
 </style>
 </head>
@@ -131,6 +139,9 @@
   <button class="app" data-app="booking"><i>✉</i>BOOKING</button>
   <button class="app" data-app="caos"><i>&gt;_</i>CAOS</button>
 </div>
+
+<div id="desktop" aria-label="Área de trabalho"></div>
+<div id="ctx" role="menu"></div>
 
 <script>
 /* =============================================================================
@@ -475,6 +486,54 @@ addEventListener("keydown",function(e){
   if(e.key==="Escape"){ var f=$$(".win").filter(function(w){return w.classList.contains("focus");})[0]; if(f&&f.parentNode) f.parentNode.removeChild(f); }
   if(e.key==="`"||e.key==="Dead"){ openWin("caos",APPS.caos.title,200,170,APPS.caos.w,APPS.caos.h,APPS.caos.build()); }
 });
+
+/* ---------------- ESCRITÓRIO: ícones + menu de contexto ---------------- */
+var ACCENT=0;
+(function desktop(){
+  var dk=$("#desktop"); if(!dk) return;
+  var icons=[["lore","◈","LORE"],["obras","▦","OBRAS"],["audio","♪","AUDIO"],["video","▶","VÍDEO"],
+    ["radio","≈","RADIO 432"],["sessoes","≡","SESSÕES"],["experiencia","✵","EXPERIÊNCIA"],
+    ["prensa","✦","PRENSA"],["booking","✉","BOOKING"],["newsletter","✉","NEWSLETTER"],["caos",">_","CAOS"],
+    ["readme","◻","LEIA-ME"]];
+  function readmeHTML(){
+    return '<h2>BELENTANI OS</h2><p>Sistema operativo lírico-neón do caos que somos.</p>'
+      +'<h3>Como usar</h3><p>Um clique seleciona; duplo-clique (ou Enter) abre. Botão direito no ambiente de trabalho abre o menu.</p>'
+      +'<h3>Apps</h3><p>LORE · OBRAS · AUDIO · VÍDEO · RADIO 432 · SESSÕES · EXPERIÊNCIA · PRENSA · BOOKING · NEWSLETTER · CAOS.</p>'
+      +'<h3>Frequência-raiz</h3><p>432 Hz. Nenhuma página é terminal.</p>';
+  }
+  icons.forEach(function(ic){
+    var el=document.createElement("div"); el.className="dicon"; el.tabIndex=0;
+    el.innerHTML='<i>'+ic[1]+'</i><span>'+ic[2]+'</span>';
+    dk.appendChild(el);
+    function act(){
+      if(ic[0]==="readme"){ openWin("readme","LEIA-ME",170,90,470,340, readmeHTML()); return; }
+      var a=APPS[ic[0]]; if(a) openWin(ic[0],a.title,a.x,a.y,a.w,a.h,a.build());
+    }
+    el.addEventListener("click",function(e){ e.stopPropagation(); $$(".dicon").forEach(function(x){x.classList.remove("sel");}); el.classList.add("sel"); });
+    el.addEventListener("dblclick",act);
+    el.addEventListener("keydown",function(e){ if(e.key==="Enter"){ e.preventDefault(); act(); } });
+  });
+  document.addEventListener("click",function(){ $$(".dicon").forEach(function(x){x.classList.remove("sel");}); hideCtx(); });
+  var ctx=$("#ctx");
+  function hideCtx(){ if(ctx) ctx.style.display="none"; }
+  function showCtx(x,y){
+    ctx.innerHTML="";
+    [
+      ["Abrir terminal CAOS",function(){ var a=APPS.caos; openWin("caos",a.title,a.x,a.y,a.w,a.h,a.build()); }],
+      ["Abrir OBRAS",function(){ var a=APPS.obras; openWin("obras",a.title,a.x,a.y,a.w,a.h,a.build()); }],
+      ["Abrir RADIO 432",function(){ var a=APPS.radio; openWin("radio",a.title,a.x,a.y,a.w,a.h,a.build()); }],
+      ["Fechar todas as janelas",function(){ $$(".win").forEach(function(w){ if(w.parentNode) w.parentNode.removeChild(w); }); }],
+      ["Mudar cor de acento",function(){ ACCENT=(ACCENT+1)%PAL.length; document.documentElement.style.setProperty("--red",PAL[ACCENT]); }]
+    ].forEach(function(it){
+      var b=document.createElement("button"); b.type="button"; b.textContent=it[0];
+      b.addEventListener("click",function(e){ e.stopPropagation(); it[1](); hideCtx(); });
+      ctx.appendChild(b);
+    });
+    ctx.style.left=Math.min(x, innerWidth-215)+"px"; ctx.style.top=Math.min(y, innerHeight-190)+"px"; ctx.style.display="block";
+  }
+  dk.addEventListener("contextmenu",function(e){ e.preventDefault(); showCtx(e.clientX,e.clientY); });
+  addEventListener("keydown",function(e){ if(e.key==="Escape") hideCtx(); });
+})();
 })();
 </script>
 </body>

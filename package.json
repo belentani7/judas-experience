@@ -1,0 +1,14 @@
+{
+  "name": "judas-experience",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve . -p 3001",
+    "build": "echo 'Static site - no build needed'",
+    "preview": "npx serve . -p 3001"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "serve": "latest"
+  }
+}

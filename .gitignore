@@ -6,3 +6,4 @@ Thumbs.db
 .env.*
 .openclaw/
 .vercel
+.env*

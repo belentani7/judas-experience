@@ -44,7 +44,7 @@ jobs:
             mal=1
           fi
           if git grep -nIE "(ghp|gho|ghs|github_pat)_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9]{24,}|AIza[0-9A-Za-z_-]{30,}" -- ':!*.md' ':!*.lock' ':!pnpm-lock.yaml'; then
-            echo "::error::Posible credencial en el codigo: revocalA antes de continuar"
+            echo "::error::Posible credencial en el codigo: revocala antes de continuar"
             mal=1
           fi
           if [ "$mal" -eq 0 ]; then
@@ -57,4 +57,5 @@ jobs:
 
       - name: Resumen
         if: always()
-        run: echo "Gate de higiene: estructura, secretos y referencias locales."
+        run: |
+          echo "Gate de higiene ejecutado: estructura, secretos y referencias locales."

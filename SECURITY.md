@@ -1,37 +1,25 @@
-# Politica de seguridad
+# Security Policy
 
-## Que reportar
+## Reporting a Vulnerability
 
-Si encuentras una vulnerabilidad en este repositorio, reportala de forma **privada**:
+Please report security vulnerabilities via email to belentani7pedro@gmail.com.
 
-- GitHub: *Security -> Report a vulnerability* (pestana de advisories del repositorio)
-- Email: belentani7pedro@gmail.com
+## Code Scanning
 
-Incluye: descripcion, pasos para reproducir, impacto y, si es posible, una propuesta de fix.
+This project uses GitHub CodeQL for automated security scanning. All security issues detected by CodeQL will be addressed with priority.
 
-## Que se considera vulnerabilidad
+## Dependabot
 
-- Ejecucion de codigo arbitrario en el navegador a partir de entrada no confiable
-- Inyeccion (XSS) por datos guardados o inyectados en el DOM
-- Fuga de datos personales o de sesion
-- Rutas que esquiven el mismo origen
+Dependabot alerts security vulnerabilities in dependencies. Dependabot security updates will be accepted via Pull Request.
 
-## Que NO se considera vulnerabilidad
+## Secret Protection
 
-- Uso previsto de la aplicacion (este proyecto es un sitio publico)
-- Ausencia de cabeceras que solo afectan a la puntuacion de un escaner
-- Problemas sin impacto demostrable
+GitHub Secret Protection scans for hardcoded secrets. Do not commit API keys, tokens, or passwords to this repository.
 
-## Tiempo de respuesta
+## Advanced Security
 
-| Prioridad | Confirmacion | Estado |
-|---|---|---|
-| Critica | 48 h | Fix o mitigacion publicada |
-| Alta | 1 semana | Fix scheduled |
-| Media / Baja | 1 mes | Confirmado y listado |
-
-## Buenas practicas para Reporting
-
-- No incluyas secretos en el codigo, ni en ejemplos, ni en commits
-- Usa `.env.example` para documentar variables, nunca con valores reales
-- Reporta lo que encaje en "Que se considera vulnerabilidad"
+Enable GitHub Advanced Security for:
+- Dependabot alerts
+- CodeQL analysis
+- Secret scanning
+- Push protection

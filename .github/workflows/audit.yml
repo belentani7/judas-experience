@@ -18,7 +18,7 @@ jobs:
     name: Higiene del repositorio
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - name: Ficheros obligatorios
         run: |
